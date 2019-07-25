@@ -7,4 +7,4 @@ user: creation of new users, deletion and updation of users is done via this pac
 transaction:all transaction on wallet is done via API from here.
 Wallet: all wallet management is processed here.
 
-API can be acccessed via postman or in terminal usin Curl
+API can be acccessed via postman or in terminal using Curl
