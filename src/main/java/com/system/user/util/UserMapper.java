@@ -9,7 +9,7 @@ public class UserMapper {
 
     public static UserData toEntity(@Valid UserDto userDto) {
         UserData entity = new UserData();
-        if(userDto.getId()!=null){
+        if (userDto.getId() != null) {
             entity.setId(userDto.getId());
         }
         entity.setName(userDto.getName());

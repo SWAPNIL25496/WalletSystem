@@ -1,7 +1,6 @@
 package com.system.wallet.controller;
 
 
-
 import com.system.user.dto.UserDto;
 import com.system.user.service.UserService;
 import com.system.wallet.dto.WalletDto;
@@ -45,17 +44,17 @@ public class WalletController {
 
     }
 
-    @PutMapping("/wallet")
+    @PostMapping("/balance")
     public WalletDto editOneWallet(
             @RequestBody WalletDto walletDto
     ) {
         WalletDto walletDto1 = walletService.getWalletById(walletDto.getId());
 
-        if (walletDto.getWalletBalance() != null){
-            Integer newBalance=walletDto.getWalletBalance() + walletDto1.getWalletBalance();
+        if (walletDto.getWalletBalance() != null) {
+            Integer newBalance = walletDto.getWalletBalance() + walletDto1.getWalletBalance();
             walletDto1.setWalletBalance(newBalance);
         }
-        if (walletDto.getUserId() != null){
+        if (walletDto.getUserId() != null) {
 
             throw new WalletException("can't change user of wallet");
         }

@@ -16,19 +16,20 @@ public class UserController {
     @Autowired
     UserService userService;
 
+
     @PostMapping("/user")
-    public UserData createNewUser(@Valid @RequestBody UserDto userDto){
+    public UserData createNewUser(@Valid @RequestBody UserDto userDto) {
         //setting automatic id
         // userDto.setId(nextId.incrementAndGet());
 
-        if (userService.userExitsByEmail(userDto.getEmail()) || userService.userExitsByPhoneNumber(userDto.getPhoneNumber())){
+        if (userService.userExitsByEmail(userDto.getEmail()) || userService.userExitsByPhoneNumber(userDto.getPhoneNumber())) {
             throw new UserException("user found with phone number or email address");
         }
 
 
-
-        return  userService.add(userDto);
+        return userService.add(userDto);
     }
+
     @GetMapping("/user")
     public @ResponseBody
     List<UserData> getUsers() {
@@ -37,10 +38,8 @@ public class UserController {
 
 
     @GetMapping("/user/{id}")
-    public UserDto getUser(@PathVariable("id") Integer userId){
-            return userService.getUserById(userId);
-
-
+    public UserDto getUser(@PathVariable("id") Integer userId) {
+        return userService.getUserById(userId);
 
 
     }
@@ -49,21 +48,21 @@ public class UserController {
     public UserDto editOneUser(
             @RequestBody UserDto newUser
     ) {
-            UserDto userDto = userService.getUserById(newUser.getId());
-            if (newUser.getEmail() != null){
+        UserDto userDto = userService.getUserById(newUser.getId());
+        if (newUser.getEmail() != null) {
 
-                userDto.setEmail(newUser.getEmail() );
-            }
-            if (newUser.getName() != null){
-                userDto.setName(newUser.getName() );
-            }
-            if (newUser.getPhoneNumber() != null){
+            userDto.setEmail(newUser.getEmail());
+        }
+        if (newUser.getName() != null) {
+            userDto.setName(newUser.getName());
+        }
+        if (newUser.getPhoneNumber() != null) {
 
-                userDto.setPhoneNumber(newUser.getPhoneNumber() );
-            }
-            userService.add(userDto);
+            userDto.setPhoneNumber(newUser.getPhoneNumber());
+        }
+        userService.add(userDto);
 
-            return userDto;
+        return userDto;
 
 
     }

@@ -5,6 +5,7 @@ import com.system.user.util.UserException;
 import com.system.wallet.dto.WalletDto;
 import com.system.wallet.model.WalletData;
 import com.system.wallet.repository.WalletRepository;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,37 +15,42 @@ import java.util.Optional;
 
 @Component
 public class WalletService {
+    static Logger logger = Logger.getLogger(WalletService.class);
+
+
     @Autowired
     private WalletRepository walletRepository;
 
-    public WalletData add(WalletDto walletDto){
-        WalletData walletData =toEntity(walletDto);
+    public WalletData add(WalletDto walletDto) {
+        logger.info(walletDto.getId());
+
+        WalletData walletData = toEntity(walletDto);
         walletRepository.save(walletData);
         return walletData;
     }
 
-   
 
-    public WalletDto getWalletById(Integer id){
+    public WalletDto getWalletById(Integer id) {
         Optional<WalletDto> optionalUserData = Optional.ofNullable(toDto(walletRepository.findOne(id)));
         return optionalUserData.orElseThrow(() -> new UserException("Wallet not find with id " + id));
     }
 
-    public WalletDto getWalletByUserId(Integer userId){
+    public WalletDto getWalletByUserId(Integer userId) {
         Optional<WalletDto> optionalUserDto = Optional.ofNullable(toDto(walletRepository.findByUserId(userId)));
         return optionalUserDto.orElseThrow(() -> new UserException("User  wallet not found "));
     }
 
-    public Boolean walletExitsById(Integer id){
+    public Boolean walletExitsById(Integer id) {
         return walletRepository.exists(id);
     }
-    public Boolean walletExistsbyUserId(Integer userId){
+
+    public Boolean walletExistsbyUserId(Integer userId) {
         return walletRepository.existsByUserId(userId);
     }
 
-    private WalletData toEntity(@Valid  WalletDto walletDto) {
+    private WalletData toEntity(@Valid WalletDto walletDto) {
         WalletData entity = new WalletData();
-        if(walletDto.getId()!=null){
+        if (walletDto.getId() != null) {
             entity.setId(walletDto.getId());
         }
         entity.setWalletBalance(walletDto.getWalletBalance());
@@ -53,7 +59,7 @@ public class WalletService {
         return entity;
     }
 
-    private WalletDto toDto(@Valid  WalletData walletData) {
+    private WalletDto toDto(@Valid WalletData walletData) {
         WalletDto entity = new WalletDto();
         entity.setId(walletData.getId());
         entity.setUserId(walletData.getUserId());

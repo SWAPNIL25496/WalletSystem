@@ -15,8 +15,8 @@ public class UserData implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Size(min=10, max=10, message="Mobile number must be of 10 digits")
-    @Pattern(regexp="(^$|[0-9]{10})")
+    @Size(min = 10, max = 10, message = "Mobile number must be of 10 digits")
+    @Pattern(regexp = "(^$|[0-9]{10})")
     @Column(unique = true)
     private String phoneNumber;
 
@@ -25,8 +25,6 @@ public class UserData implements Serializable {
     @Email
     @Column(unique = true)
     private String email;
-
-
 
 
     public UserData() {
