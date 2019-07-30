@@ -1,7 +1,7 @@
-package com.restapplication.model;
+package com.system.user.model;
 
+import com.system.wallet.model.WalletData;
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 
 @Entity
-public class UserData  implements Serializable {
+public class UserData implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -28,27 +28,14 @@ public class UserData  implements Serializable {
 
 
 
-    @OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
-            mappedBy = "userData")
-    private WalletData walletData;
-
 
     public UserData() {
     }
 
-    public UserData( String phoneNumber, String name, String email) {
+    public UserData(String phoneNumber, String name, String email) {
         this.phoneNumber = phoneNumber;
         this.name = name;
         this.email = email;
-    }
-
-    public WalletData getWalletData() {
-        return walletData;
-    }
-
-    public void setWalletData(WalletData walletData) {
-        this.walletData = walletData;
     }
 
     public Integer getId() {

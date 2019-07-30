@@ -1,14 +1,13 @@
-package com.restapplication.model;
+package com.system.wallet.model;
+
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Date;
 
 
 @Entity
 @Table(name = "wallet_data")
-public class WalletData  implements Serializable  {
+public class WalletData implements Serializable  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -16,11 +15,16 @@ public class WalletData  implements Serializable  {
     @Column(name = "wallet_balance")
     private Integer walletBalance;
 
+    @Column(name = "user_id", unique = true)
+    private Integer userId;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserData userData;
+    public Integer getUserId() {
+        return userId;
+    }
 
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
     public WalletData() {
     }
@@ -45,12 +49,6 @@ public class WalletData  implements Serializable  {
         this.walletBalance = walletBalance;
     }
 
-//    public UserData getUserData() {
-//        return userData;
-//    }
 
-    public void setUserData(UserData userData) {
-        this.userData = userData;
-    }
 }
 

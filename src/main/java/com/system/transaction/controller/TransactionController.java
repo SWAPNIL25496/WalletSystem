@@ -1,4 +1,4 @@
 package com.system.transaction.controller;
 
-public class UserController {
+public class TransactionController {
 }

@@ -1,11 +1,8 @@
-package com.system.user.util;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+package com.system.wallet.util;
 
 //@ResponseStatus(HttpStatus.OK)
-public class UserException extends RuntimeException{
-    public UserException(String message){
+public class WalletException extends RuntimeException{
+    public WalletException(String message){
         super(message);
     }
 }

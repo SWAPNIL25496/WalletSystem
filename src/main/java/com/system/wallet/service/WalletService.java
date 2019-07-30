@@ -1,10 +1,10 @@
-package com.system.user.service;
+package com.system.wallet.service;
 
-import com.system.user.dto.UserDto;
-import com.system.user.model.UserData;
-import com.system.user.repository.UserRepository;
+
 import com.system.user.util.UserException;
-
+import com.system.wallet.dto.WalletDto;
+import com.system.wallet.model.WalletData;
+import com.system.wallet.repository.WalletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,58 +13,51 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class UserService {
+public class WalletService {
     @Autowired
-    private UserRepository userRepository;
+    private WalletRepository walletRepository;
 
-    public UserData add(UserDto userDto){
-        UserData userData =toEntity(userDto);
-        userRepository.save(userData);
-        return userData;
-    }
-
-    public List<UserData> getAllUsers(){
-        return (List<UserData>) userRepository.findAll();
+    public WalletData add(WalletDto walletDto){
+        WalletData walletData =toEntity(walletDto);
+        walletRepository.save(walletData);
+        return walletData;
     }
 
-    public UserDto getUserById(Integer id){
-        Optional<UserDto> optionalUserData = Optional.ofNullable(toDto(userRepository.findOne(id)));
-        return optionalUserData.orElseThrow(() -> new UserException("User not find with id " + id));
+   
+
+    public WalletDto getWalletById(Integer id){
+        Optional<WalletDto> optionalUserData = Optional.ofNullable(toDto(walletRepository.findOne(id)));
+        return optionalUserData.orElseThrow(() -> new UserException("Wallet not find with id " + id));
     }
 
-    public UserDto getUserByPhoneNumber(String  phoneNumber){
-        Optional<UserDto> optionalUserDto = Optional.ofNullable(toDto(userRepository.findByPhoneNumber(phoneNumber)));
-        return optionalUserDto.orElseThrow(() -> new UserException("User not find with phone number " + phoneNumber));
+    public WalletDto getWalletByUserId(Integer userId){
+        Optional<WalletDto> optionalUserDto = Optional.ofNullable(toDto(walletRepository.findByUserId(userId)));
+        return optionalUserDto.orElseThrow(() -> new UserException("User  wallet not found "));
     }
 
-    public Boolean userExitsById(Integer id){
-        return userRepository.exists(id);
+    public Boolean walletExitsById(Integer id){
+        return walletRepository.exists(id);
     }
-    public Boolean userExitsByEmail(String email){
-        return userRepository.existsByEmail(email);
-    }
-    public Boolean userExitsByPhoneNumber(String phoneNumber){
-        return userRepository.existsByPhoneNumber(phoneNumber);
+    public Boolean walletExistsbyUserId(Integer userId){
+        return walletRepository.existsByUserId(userId);
     }
 
-    private UserData toEntity(@Valid  UserDto userDto) {
-        UserData entity = new UserData();
-        if(userDto.getId()!=null){
-            entity.setId(userDto.getId());
+    private WalletData toEntity(@Valid  WalletDto walletDto) {
+        WalletData entity = new WalletData();
+        if(walletDto.getId()!=null){
+            entity.setId(walletDto.getId());
         }
-        entity.setName(userDto.getName());
-        entity.setEmail(userDto.getEmail());
-        entity.setPhoneNumber(userDto.getPhoneNumber());
+        entity.setWalletBalance(walletDto.getWalletBalance());
+        entity.setUserId(walletDto.getUserId());
 
         return entity;
     }
 
-    private UserDto toDto(@Valid  UserData userData) {
-        UserDto entity = new UserDto();
-        entity.setId(userData.getId());
-        entity.setName(userData.getName());
-        entity.setEmail(userData.getEmail());
-        entity.setPhoneNumber(userData.getPhoneNumber());
+    private WalletDto toDto(@Valid  WalletData walletData) {
+        WalletDto entity = new WalletDto();
+        entity.setId(walletData.getId());
+        entity.setUserId(walletData.getUserId());
+        entity.setWalletBalance(walletData.getWalletBalance());
 
         return entity;
     }

@@ -7,7 +7,7 @@ import javax.validation.Valid;
 
 public class UserMapper {
 
-    private UserData toEntity(@Valid UserDto userDto) {
+    public static UserData toEntity(@Valid UserDto userDto) {
         UserData entity = new UserData();
         if(userDto.getId()!=null){
             entity.setId(userDto.getId());
@@ -19,7 +19,7 @@ public class UserMapper {
         return entity;
     }
 
-    private UserDto toDto(@Valid  UserData userData) {
+    public static UserDto toDto(@Valid UserData userData) {
         UserDto entity = new UserDto();
         entity.setId(userData.getId());
         entity.setName(userData.getName());
